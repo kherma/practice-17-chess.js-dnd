@@ -22,7 +22,7 @@ const BoardSquare = ({ piece, squareColor, position }) => {
         : setPromotion(null)
     );
     return () => subscribe.unsubscribe();
-  }, []);
+  }, [position]);
   return (
     <div className="square-board" ref={drop}>
       <Square squareColor={squareColor}>
