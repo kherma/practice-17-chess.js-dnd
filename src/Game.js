@@ -6,6 +6,10 @@ const chess = new Chess();
 export const gameSubject = new BehaviorSubject();
 
 export const initGame = () => {
+  const savedGame = localStorage.getItem("savedGame");
+  if (savedGame) {
+    chess.load(savedGame);
+  }
   updateGame();
 };
 
@@ -41,6 +45,7 @@ const updateGame = (pendingPromotion) => {
     turn: chess.turn(),
     result: isGameOver ? getGameResults() : null,
   };
+  localStorage.setItem("savedGame", chess.fen());
   gameSubject.next(newGame);
 };
 
