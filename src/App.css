@@ -8,6 +8,30 @@
   cursor: pointer;
 }
 
+.vertical-text {
+  text-orientation: upright;
+  writing-mode: vertical-lr;
+  font-family: sans-serif;
+  padding: 10px;
+  color: white;
+}
+
+.btn-new {
+  margin-top: 20px;
+  cursor: pointer;
+  background: rgb(63, 63, 63);
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+.rg-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
 /* BOARD */
 .board {
   width: 100%;

@@ -33,6 +33,36 @@ export const move = (from, to, promotion) => {
 };
 
 const updateGame = (pendingPromotion) => {
-  const newGame = { board: chess.board(), pendingPromotion };
+  const isGameOver = chess.game_over();
+  const newGame = {
+    board: chess.board(),
+    pendingPromotion,
+    isGameOver,
+    result: isGameOver ? getGameResults() : null,
+  };
   gameSubject.next(newGame);
+};
+
+const getGameResults = () => {
+  if (chess.in_checkmate()) {
+    const winner = chess.turn() === "w" ? "BLACK" : "WHITE";
+    return `CHECKMATE - WINNER - ${winner}`;
+  } else if (chess.in_draw()) {
+    let reason = "50 - MOVES RULE";
+    if (chess.in_stalemate()) {
+      reason = "STEALMATE";
+    } else if (chess.in_threefold_repetition()) {
+      reason = "REPETITION";
+    } else if (chess.insufficient_material()) {
+      reason = "INSUFFICIENT MATERIAL";
+    }
+    return `DRAW - ${reason}`;
+  } else {
+    return `UNKNOWN REASON`;
+  }
+};
+
+export const resetGame = () => {
+  chess.reset();
+  updateGame();
 };
